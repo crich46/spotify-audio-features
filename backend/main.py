@@ -7,7 +7,7 @@ from sqlalchemy.orm import sessionmaker, Session
 import shutil
 import os
 import uuid
-from .features import AudioFeatureExtractor
+from features import AudioFeatureExtractor
 
 # Database Setup
 SQLALCHEMY_DATABASE_URL = "sqlite:///./songs.db"
