@@ -45,8 +45,7 @@ const Dashboard = () => {
         { subject: 'Energy', A: features.energy, fullMark: 1 },
         { subject: 'Danceability', A: features.danceability, fullMark: 1 },
         { subject: 'Acousticness', A: features.acousticness, fullMark: 1 },
-        { subject: 'Valence', A: features.valence, fullMark: 1 },
-        { subject: 'Tempo (Norm)', A: Math.min(features.tempo / 200, 1), fullMark: 1 },
+        { subject: 'Valence', A: features.valence, fullMark: 1 }
     ] : [];
 
     return (
@@ -79,8 +78,8 @@ const Dashboard = () => {
                             onClick={analyzeAudio}
                             disabled={!file || loading}
                             className={`mt-6 w-full py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-105 ${!file || loading
-                                    ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
-                                    : 'bg-gradient-to-r from-green-500 to-emerald-600 text-black shadow-lg shadow-green-500/20'
+                                ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
+                                : 'bg-gradient-to-r from-green-500 to-emerald-600 text-black shadow-lg shadow-green-500/20'
                                 }`}
                         >
                             {loading ? 'Analyzing...' : 'Analyze Track'}
@@ -96,11 +95,11 @@ const Dashboard = () => {
                                 <p>Upload a track to see its sonic fingerprint.</p>
                             </div>
                         ) : (
-                            <div className="w-full h-full min-h-[300px]">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
+                            <div className="w-full h-full min-h-[350px]">
+                                <ResponsiveContainer width="100%" height={350}>
+                                    <RadarChart cx="50%" cy="50%" outerRadius="70%" data={data} margin={{ top: 20, right: 50, bottom: 20, left: 30 }}>
                                         <PolarGrid stroke="#374151" />
-                                        <PolarAngleAxis dataKey="subject" tick={{ fill: '#9CA3AF', fontSize: 12 }} />
+                                        <PolarAngleAxis dataKey="subject" tick={{ fill: '#9CA3AF', fontSize: 13 }} />
                                         <PolarRadiusAxis angle={30} domain={[0, 1]} tick={false} axisLine={false} />
                                         <Radar
                                             name="Audio Features"
@@ -113,18 +112,21 @@ const Dashboard = () => {
                                     </RadarChart>
                                 </ResponsiveContainer>
 
-                                <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
+                                <div className="mt-6 grid grid-cols-2 gap-3 text-sm">
                                     <div className="flex items-center gap-2 text-gray-300">
                                         <Zap className="w-4 h-4 text-yellow-400" /> Energy: {features.energy.toFixed(2)}
                                     </div>
                                     <div className="flex items-center gap-2 text-gray-300">
-                                        <Activity className="w-4 h-4 text-blue-400" /> Tempo: {features.tempo.toFixed(0)} BPM
+                                        <Activity className="w-4 h-4 text-blue-400" /> Dance: {features.danceability.toFixed(2)}
                                     </div>
                                     <div className="flex items-center gap-2 text-gray-300">
                                         <Smile className="w-4 h-4 text-pink-400" /> Valence: {features.valence.toFixed(2)}
                                     </div>
                                     <div className="flex items-center gap-2 text-gray-300">
                                         <Mic className="w-4 h-4 text-purple-400" /> Acoustic: {features.acousticness.toFixed(2)}
+                                    </div>
+                                    <div className="flex items-center gap-2 text-gray-300 col-span-2 justify-center">
+                                        <Activity className="w-4 h-4 text-green-400" /> Tempo: {features.tempo.toFixed(0)} BPM
                                     </div>
                                 </div>
                             </div>
